@@ -19,7 +19,7 @@ Project Description: Fill out
 # Initial Setup
 ```{r Initial Setup, include=FALSE}
 rm(list=ls())
-setwd("~/GitHub/WRC18_RhizoTeaDecomp/analyses")
+setwd("C:/Users/ohhey/GitHub/WRC18_RhizoTeaDecomp/analyses")
 se <- function(x, ...){sd(x, na.rm = TRUE)/sqrt(length(na.omit(x)))}
 ci <- function(x, ...){1.96 * sd(x,na.rm = TRUE)}
 
@@ -106,6 +106,10 @@ plot(shannon.lm)
 shannon.lm
 anova(shannon.lm, type="II", ddf="Kenward-Roger")
 ```
+```{r}
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_shannon.lm.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+```
+
 
 #Plot shannon diversity 
 ```{r Plot - Shannon Diversity, echo=TRUE}
@@ -128,7 +132,7 @@ shannon<-p1 + theme_bw() +
           fill="white", size=1)) +
     scale_x_discrete(breaks=c("M", "MF"), labels=c("mowed", "mowed/fertilized"))
 shannon
-ggsave("../figures/2018.bacteria.shannon.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_bacteria_shannon_diversity.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
 # Simple Hypothesis Testing - Microbes
 ```{r perMANOVA - Bacteria - All sources, echo=TRUE}
@@ -199,7 +203,7 @@ plot1a + theme(panel.grid.major = element_blank(),
     guides(colour = guide_legend(override.aes = list(pch=16, size = 4)),
            shape = guide_legend(override.aes = list(size = 4))) +
     ggtitle("Bacterial Community Composition (2018)")
-ggsave("../figures/2018.bact.ordination.bulk.jpg", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_bacteria_communitycomposition.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
 ## Plant Data - 2018 only
 ```{r Import Files - Plant, include=FALSE}
@@ -267,7 +271,7 @@ shannon.plant <-p1 + theme_bw() +
           fill="white", size=1)) +
     scale_x_discrete(breaks=c("M", "MF"), labels=c("mowed", "mowed/fertilized"))
 shannon.plant
-ggsave("../figures/2018.plant.shannon.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_plantshannon.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
 # Simple Hypothesis Testing - Microbes
 ```{r perMANOVA - Plant, echo=TRUE}
@@ -337,7 +341,7 @@ plot2a + theme(panel.grid.major = element_blank(),
     guides(colour = guide_legend(override.aes = list(pch=16, size = 4)),
            shape = guide_legend(override.aes = list(size = 4)))+
   ggtitle("Plant Community Composition (2018)")
-ggsave("../figures/2018.plant.ordination.jpg", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_plant_communitycomposition.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
 # CORRELATIONS Plant - Bacteria
 ```{r mantel test, include=FALSE}
@@ -388,7 +392,7 @@ shannon.cor <- p1 + theme_bw() +
   labs(x = "Plant Shannon Diversity Index (H')", y = "Bacterial Shannon Diversity Index (H')") +
   theme(strip.text.x = element_text(size=16, face="bold"), strip.text.y = element_text(size=16, face="bold"), strip.background = element_rect(colour="black", fill="white", size=1))
 shannon.cor
-ggsave("../figures/2018.plant.bact.shannon.jpg", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
+ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_plant_bacteria_shannondiversity.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
 ## Repeat for plant-fungal
 ## Repeat for plant-carbon metabolic profile
