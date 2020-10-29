@@ -343,18 +343,20 @@ plot2a + theme(panel.grid.major = element_blank(),
   ggtitle("Plant Community Composition (2018)")
 ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_plant_communitycomposition.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
-# CORRELATIONS Plant - Bacteria
-```{r mantel test, include=FALSE}
-#treatment and ditch included 
+# CORRELATIONS Plant - FUngal
+```
+{r mantel test, include=FALSE}
+# treatment and ditch included 
+
 dist.plant <- vegdist(PCC.2018, method="bray")
-dist.bact <- vegdist(dataREL, method="bray")
+dist.fungal <- vegdist(dataREL, method="bray")
 
 #separate by treatment
 new.data <-cbind(design.2018,dataREL)
-new.data.bact.M <- subset(new.data, treatment == "M")
-new.data.bact.MF <- subset(new.data, treatment == "MF")
-dist.bact.M <- vegdist(new.data.bact.M[,-c(1:16)], method="bray")
-dist.bact.MF <- vegdist(new.data.bact.MF[,-c(1:16)], method="bray")
+new.data.fungal.M <- subset(new.data, treatment == "M")
+new.data.fungal.MF <- subset(new.data, treatment == "MF")
+dist.fungal.M <- vegdist(new.data.fungal.M[,-c(1:16)], method="bray")
+dist.fungal.MF <- vegdist(new.data.fungal.MF[,-c(1:16)], method="bray")
 
 new.data.plant <-cbind(design.2018,PCC.2018)
 new.data.plant.M <- subset(new.data.plant, treatment == "M")
@@ -363,22 +365,21 @@ dist.plant.M <- vegdist(new.data.plant.M[,-c(1:16)], method="bray")
 dist.plant.MF <- vegdist(new.data.plant.MF[,-c(1:16)], method="bray")
 
 # MANTEL TESTS
-mantel.rtest(dist.plant, dist.bact, nrepet = 999) #all treatments and ditch included - Mantel r = 0.5193241, p = 0.001
-mantel.rtest(dist.plant.M, dist.bact.M, nrepet = 999) # mowed only: Mantel r = 0.4825625, p = 0.014
-mantel.rtest(dist.plant.MF, dist.bact.MF, nrepet = 999) # mowed/fert: Mantel r = 0.4083636, p = 0.036 
+mantel.rtest(dist.plant, dist.fungal, nrepet = 999) #all treatments and ditch included - Mantel r = 0.5193241, p = 0.001
+mantel.rtest(dist.plant.M, dist.fungal.M, nrepet = 999) # mowed only: Mantel r = 0.4825625, p = 0.014
+mantel.rtest(dist.plant.MF, dist.fungal.MF, nrepet = 999) # mowed/fert: Mantel r = 0.4083636, p = 0.036 
 
 # correlation alpha diversity
 alpha.plant.M <- subset(diversity.plant, treatment == "M")
 alpha.plant.MF <- subset(diversity.plant, treatment == "MF")
-alpha.bact.M <- subset(diversity, treatment == "M")
-alpha.bact.MF <- subset(diversity, treatment == "MF")
+alpha.fungal.M <- subset(diversity, treatment == "M")
+alpha.fungal.MF <- subset(diversity, treatment == "MF")
 
-cor.test(diversity.plant$shannon, diversity$shannon) # ALL: Pearsonn rho = -0.751, p = 0.0008
-cor.test(alpha.plant.M$shannon, alpha.bact.M$shannon) # mowed only: Pearson rho = -0.6412016, p = 0.087
-cor.test(alpha.plant.MF$shannon, alpha.bact.MF$shannon) # mowed/fert: Pearson rho = -0.4943074, p = 0.2131
-plant.bact.shannon <- cbind(design.2018, diversity.plant$shannon, diversity$shannon)
+cor.test(alpha.plant.M$shannon, alpha.fungal.M$shannon) # mowed only: Pearson rho = -0.630, p = 0.094
+cor.test(alpha.plant.MF$shannon, alpha.fungal.MF$shannon) # mowed/fert: Pearson rho = -0.469, p = 0.2413
+plant.fungal.shannon <- cbind(design.2018, diversity.plant$shannon, diversity$shannon)
 
-p <- ggplot(plant.bact.shannon, aes(x=diversity.plant$shannon, y=diversity$shannon, color=treatment)) +
+p <- ggplot(plant.fungal.shannon, aes(x=diversity.plant$shannon, y=diversity$shannon, color=treatment)) +
   scale_color_manual(name="Treatment", values=c("gray70","darkgreen"), labels = c("mowed", "mowed/fertilized")) +  
   geom_point(size=4)
 p1=p+geom_smooth(method="lm")
@@ -389,10 +390,15 @@ shannon.cor <- p1 + theme_bw() +
         axis.text.x = element_text(vjust=0.65, hjust=0.5, size=16), 
         panel.border = element_rect(colour = "black",size=1)) +
   theme(axis.ticks.length=unit(0.3,"cm")) + 
-  labs(x = "Plant Shannon Diversity Index (H')", y = "Bacterial Shannon Diversity Index (H')") +
+  labs(x = "Plant Shannon Diversity Index (H')", y = "Fungal Shannon Diversity Index (H')") +
   theme(strip.text.x = element_text(size=16, face="bold"), strip.text.y = element_text(size=16, face="bold"), strip.background = element_rect(colour="black", fill="white", size=1))
 shannon.cor
 ggsave("C:/Users/ohhey/OneDrive/Pictures/2018_plant_bacteria_shannondiversity.png", plot=last_plot(), device=NULL, path=NULL, scale=1, width=7, height=5, dpi=300, limitsize=TRUE)
 ```
+
+```{r}
+
+```
+
 ## Repeat for plant-fungal
 ## Repeat for plant-carbon metabolic profile
